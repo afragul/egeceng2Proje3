@@ -21,7 +21,7 @@ namespace Proje3Afragul
         {
             this.isim = isim;
             bilgi = info;
-            words = bilgi.Split(new[] { ' ', ',', '.', ';', ':', '!', '?','-' ,'(',')'}, StringSplitOptions.RemoveEmptyEntries);
+            words = bilgi.Split(new[] { ' ', ',', '.', ';', ':', '!', '?', '-', '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
             kelimeler = new BinaryTree<string>();
 
             foreach (var item in words.Where(w => !string.IsNullOrWhiteSpace(w)))
@@ -85,17 +85,17 @@ namespace Proje3Afragul
             baliklarTree.InOrderTraversal();
             Console.ReadKey();
             Console.WriteLine("Lütfen iki harf giriniz.");
-            
+
             string baslangic, son;
             baslangic = Console.ReadLine().ToUpper();
             son = Console.ReadLine().ToUpper();
 
-            while(baslangic.Length != 1 || son.Length != 1)
+            while (baslangic.Length != 1 || son.Length != 1)
             {
                 Console.WriteLine("Tekrar Deneyin");
                 baslangic = Console.ReadLine().ToUpper();
                 son = Console.ReadLine().ToUpper();
-                
+
             }
             char baslangic2 = Convert.ToChar(baslangic);
             char son2 = Convert.ToChar(son);
@@ -103,7 +103,11 @@ namespace Proje3Afragul
             baliklarTree.IkiHarf(baslangic2, son2);
 
             Console.ReadKey();
+
+            List<EgeDeniziB> siraliDizi = baliklarTree.InOrderDizi();
             
+
+            baliklarTree.DengeliAgacOlustur(siraliDizi);
         }
     }
 }
