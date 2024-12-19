@@ -1,0 +1,14 @@
+/Users/afragultig/Documents/egeceng2Proje3/bin/Debug/net8.0/egeceng2Proje3
+/Users/afragultig/Documents/egeceng2Proje3/bin/Debug/net8.0/egeceng2Proje3.deps.json
+/Users/afragultig/Documents/egeceng2Proje3/bin/Debug/net8.0/egeceng2Proje3.runtimeconfig.json
+/Users/afragultig/Documents/egeceng2Proje3/bin/Debug/net8.0/egeceng2Proje3.dll
+/Users/afragultig/Documents/egeceng2Proje3/bin/Debug/net8.0/egeceng2Proje3.pdb
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.GeneratedMSBuildEditorConfig.editorconfig
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.AssemblyInfoInputs.cache
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.AssemblyInfo.cs
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.csproj.CoreCompileInputs.cache
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.dll
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/refint/egeceng2Proje3.dll
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.pdb
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.genruntimeconfig.cache
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/ref/egeceng2Proje3.dll
