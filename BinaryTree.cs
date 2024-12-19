@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Proje3Afragul
@@ -39,16 +40,18 @@ namespace Proje3Afragul
         public string InOrderTraversal()
         {
             var result = new StringBuilder();
-            InOrderTraversal(Root, result);
+            InOrderTraversalRecursive(Root, result);
             return result.ToString().TrimEnd();
         }
 
-        private void InOrderTraversal(TreeNode<T> node, StringBuilder result)
+        private void InOrderTraversalRecursive(TreeNode<T> node, StringBuilder result)
         {
+
             if (node == null) return;
-            InOrderTraversal(node.sol, result);
+            InOrderTraversalRecursive(node.sol, result);
             Console.Write($"{node.Value} ");
-            InOrderTraversal(node.sag, result);
+
+            InOrderTraversalRecursive(node.sag, result);
         }
         public bool Search(T value) //agacta arama yapmak icin 
         {
@@ -76,7 +79,7 @@ namespace Proje3Afragul
         private (int depht, int count) CalculateDepthRecursively(TreeNode<T> node)
         {
             if (node == null)
-                return (0,0);
+                return (0, 0);
 
             var (leftDepth, leftCount) = CalculateDepthRecursively(node.sol);
             var (rightDepth, rightCount) = CalculateDepthRecursively(node.sag);
@@ -110,15 +113,54 @@ namespace Proje3Afragul
                 char ilkHarf = balikIsmi[0];  // isim özelliğinden ilk harfi al
 
                 // Geçerli ismin belirtilen harf aralığında olup olmadığını kontrol et
-                if (ilkHarf >=  baslangic && ilkHarf <= son)
+                if (ilkHarf >= baslangic && ilkHarf <= son)
                 {
+
                     Console.WriteLine(balikIsmi);  // Yalnızca isim yazdır
                 }
             }
-
             // Sağ alt ağacı dolaş
             IkiHarfInOrder(node.sag, baslangic, son);
         }
 
+        public List<T> InOrderDizi()
+        {
+            var list = new List<T>();
+            var result = new StringBuilder();
+            InOrderDiziRecursive(Root, list);
+            return list;
+        }
+
+        private void InOrderDiziRecursive(TreeNode<T> node, List<T> list)
+        {
+
+            if (node == null) return;
+            InOrderDiziRecursive(node.sol, list);
+            list.Add(node.Value);
+            InOrderDiziRecursive(node.sag, list);
+        }
+
+        public BinaryTree<T> DengeliAgacOlustur(List<T> list)
+        {
+            // 2. Dengeli bir ağaç oluştur
+            BinaryTree<T> balancedTree = new BinaryTree<T>();
+            DengeliAgacOlusturRecursive(balancedTree, list, 0, list.Count - 1);
+
+            return balancedTree;
+        }
+
+        private void DengeliAgacOlusturRecursive(BinaryTree<T> tree, List<T> list, int start, int end)
+        {
+            if (start > end)
+                return;
+
+            // Ortadaki elemanı seç ve ağaca ekle
+            int middle = (start + end) / 2;
+            tree.Insert(list[middle]);
+
+            // Sol ve sağ alt ağaçları oluştur
+            DengeliAgacOlusturRecursive(tree, list, start, middle - 1);
+            DengeliAgacOlusturRecursive(tree, list, middle + 1, end);
+        }
     }
 }
