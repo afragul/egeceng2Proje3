@@ -12,3 +12,4 @@
 /Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.pdb
 /Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.genruntimeconfig.cache
 /Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/ref/egeceng2Proje3.dll
+/Users/afragultig/Documents/egeceng2Proje3/obj/Debug/net8.0/egeceng2Proje3.sourcelink.json
