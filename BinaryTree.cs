@@ -19,14 +19,17 @@ namespace Proje3Afragul
     public class BinaryTree<T> where T : IComparable<T>
     {
         public TreeNode<T> Root { get; private set; }
+
         public void Insert(T value)
         {
             Root = InsertRecursively(Root, value);
         }
+
         private TreeNode<T> InsertRecursively(TreeNode<T> node, T value)
         {
             if (node == null)
                 return new TreeNode<T>(value);
+
             if (value.CompareTo(node.Value) < 0)
                 node.sol = InsertRecursively(node.sol, value);
             else if (value.CompareTo(node.Value) > 0)
@@ -38,23 +41,28 @@ namespace Proje3Afragul
         {
             var result = new StringBuilder();
             InOrderTraversalRecursive(Root, result);
-            return result.ToString().TrimEnd();
+            return result.ToString();
         }
+
         private void InOrderTraversalRecursive(TreeNode<T> node, StringBuilder result)
         {
+
             if (node == null) return;
             InOrderTraversalRecursive(node.sol, result);
-            Console.Write($"{node.Value} ");
+            result.Append($" {node.Value.ToString()}");
+
             InOrderTraversalRecursive(node.sag, result);
         }
         public bool Search(T value) //agacta arama yapmak icin 
         {
             return SearchRecursively(Root, value);
         }
+
         private bool SearchRecursively(TreeNode<T> node, T value)
         {
             if (node == null)
                 return false;
+
             if (value.CompareTo(node.Value) == 0)
                 return true;
             else if (value.CompareTo(node.Value) < 0)
@@ -62,10 +70,12 @@ namespace Proje3Afragul
             else
                 return SearchRecursively(node.sag, value);
         }
+
         public (int depht, int count) CalculateDepth() // Agacin derinligini hesaplamak icin
         {
             return CalculateDepthRecursively(Root);
         }
+
         private (int depht, int count) CalculateDepthRecursively(TreeNode<T> node)
         {
             if (node == null)
@@ -80,10 +90,12 @@ namespace Proje3Afragul
 
             return (currentDepth, currentNodeCount);
         }
+
         public void IkiHarf(char baslangic, char son)
         {
             IkiHarfInOrder(Root, baslangic, son);
         }
+
         private void IkiHarfInOrder(TreeNode<T> node, char baslangic, char son)
         {
             if (node == null) return;
@@ -103,12 +115,14 @@ namespace Proje3Afragul
                 // Geçerli ismin belirtilen harf aralığında olup olmadığını kontrol et
                 if (ilkHarf >= baslangic && ilkHarf <= son)
                 {
+
                     Console.WriteLine(balikIsmi);  // Yalnızca isim yazdır
                 }
             }
             // Sağ alt ağacı dolaş
             IkiHarfInOrder(node.sag, baslangic, son);
         }
+
         public List<T> InOrderDizi()
         {
             var list = new List<T>();
@@ -116,6 +130,7 @@ namespace Proje3Afragul
             InOrderDiziRecursive(Root, list);
             return list;
         }
+
         private void InOrderDiziRecursive(TreeNode<T> node, List<T> list)
         {
 
@@ -124,6 +139,7 @@ namespace Proje3Afragul
             list.Add(node.Value);
             InOrderDiziRecursive(node.sag, list);
         }
+
         public BinaryTree<T> DengeliAgacOlustur(List<T> list)
         {
             // 2. Dengeli bir ağaç oluştur
@@ -132,6 +148,7 @@ namespace Proje3Afragul
 
             return balancedTree;
         }
+
         private void DengeliAgacOlusturRecursive(BinaryTree<T> tree, List<T> list, int start, int end)
         {
             if (start > end)
