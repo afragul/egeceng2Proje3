@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +40,7 @@ namespace Proje3Afragul
         }
         public override string ToString()
         {
-            return ($" {isim} - {kelimeler.InOrderTraversal()} \n");
+            return ($"{isim} -{kelimeler.InOrderTraversal()} \n");
         }
         public static int GetOrtalamaDerinlik()
         {
@@ -49,13 +49,13 @@ namespace Proje3Afragul
     }
     class Program
     {
-        public static (BinaryTree<EgeDeniziB> tree, Hashtable hash ) DosyaOku()
+        public static (BinaryTree<EgeDeniziB> tree, Hashtable hash) DosyaOku()
         { //dosya okundu ve tree oluşturuldu
             string projeYolu = Directory.GetCurrentDirectory();
             string dosyaAdi = "baliklar.txt";
             string dosyaYolu = Path.Combine(projeYolu, dosyaAdi);
             BinaryTree<EgeDeniziB> balıklar = new BinaryTree<EgeDeniziB>();
-            Hashtable baliklarHashTable= new Hashtable();
+            Hashtable baliklarHashTable = new Hashtable();
             try
             {
                 foreach (var line in File.ReadAllLines(dosyaYolu))
@@ -63,19 +63,19 @@ namespace Proje3Afragul
                     var info = line.Split('/');
                     EgeDeniziB balik = new EgeDeniziB(info[0], info[1]);
                     balıklar.Insert(balik); //baliklar tree ye eklendi
-                    baliklarHashTable.Add(balik.isim,balik.kelimeler); //hash table a eklendi
+                    baliklarHashTable.Add(balik.isim, balik.kelimeler); //hash table a eklendi
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine("dosya okunurken hata oluştu " + e.Message);
             }
-            return (balıklar,baliklarHashTable);
+            return (balıklar, baliklarHashTable);
         }
         public static void Main(string[] args)
         {
             BinaryTree<EgeDeniziB> baliklarTree = DosyaOku().tree;
-            baliklarTree.InOrderTraversal();
+            Console.WriteLine(baliklarTree.InOrderTraversal());
 
             Console.WriteLine("Lütfen iki harf giriniz.");
 
@@ -89,25 +89,30 @@ namespace Proje3Afragul
                 baslangic = Console.ReadLine().ToUpper();
                 son = Console.ReadLine().ToUpper();
             }
-            char baslangic2 = Convert.ToChar(baslangic); 
+            char baslangic2 = Convert.ToChar(baslangic);
             char son2 = Convert.ToChar(son);
             baliklarTree.IkiHarf(baslangic2, son2);
 
             List<EgeDeniziB> siraliDizi = baliklarTree.InOrderDizi(); //liste olusturuldu 
             baliklarTree.DengeliAgacOlustur(siraliDizi); //listeden dengeli agac olusturuldu
 
-            Hashtable baliklarHashTable= DosyaOku().hash; 
+            Hashtable baliklarHashTable = DosyaOku().hash;
             Console.WriteLine("Balık adı girin: "); //balik adi input
-            string balikAdi= Console.ReadLine().ToUpper();
+            string balikAdi = Console.ReadLine().ToUpper();
 
-            while(!baliklarHashTable.ContainsKey(balikAdi)){
+            while (!baliklarHashTable.ContainsKey(balikAdi))
+            {
                 Console.WriteLine("Lütfen tekrar balık adı girin: ");
-                balikAdi= Console.ReadLine().ToUpper();
+                balikAdi = Console.ReadLine().ToUpper();
             }
             Console.WriteLine("Balık bilgisi girin: "); //bilgi input
-            string balikBilgisi= Console.ReadLine().ToUpper();
+            string balikBilgisi = Console.ReadLine().ToUpper();
             Console.ReadKey();
             baliklarHashTable[balikAdi] = balikBilgisi; //girilen bilgi güncellendi
+            baliklarTree.InOrderTraversal();
+            Console.ReadKey();
+
+
         }
     }
 }
