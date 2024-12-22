@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -106,11 +107,23 @@ namespace Proje3Afragul
                 balikAdi = Console.ReadLine().ToUpper();
             }
             Console.WriteLine("Balık bilgisi girin: "); //bilgi input
-            string balikBilgisi = Console.ReadLine().ToUpper();
+            string yeniBilgi = Console.ReadLine().ToUpper();
+
+
+
+            string[] yeniBilg = yeniBilgi.Split(new[] { ' ', ',', '.', ';', ':', '!', '?', '-', '(', ')' }, StringSplitOptions.RemoveEmptyEntries);
+            BinaryTree<string> yenikelimeler = new BinaryTree<string>();
+            foreach (var item in yeniBilg.Where(w => !string.IsNullOrWhiteSpace(w))) //yeni bilgiyle kelime ağacı oluşturuluyor
+            {
+                yenikelimeler.Insert(item.ToLower());
+            }
+            baliklarHashTable[balikAdi] = yenikelimeler;
             Console.ReadKey();
-            baliklarHashTable[balikAdi] = balikBilgisi; //girilen bilgi güncellendi
-            baliklarTree.InOrderTraversal();
-            Console.ReadKey();
+            //girilen bilgi güncellendi
+
+            //BinaryTree<string> kelimeAgaci = (BinaryTree<string>)baliklarHashTable[balikAdi];  //Güncel kelime ağacını yazdır
+            //Console.WriteLine($"{balikAdi} -{kelimeAgaci.InOrderTraversal()}");
+            //Console.ReadKey();
 
 
         }
