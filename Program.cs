@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Policy;
@@ -52,6 +53,57 @@ namespace Proje3Afragul
 
     class Program
     {
+        public static void BubbleSort(int[] array) //bubble sort algoritması (sample)
+        {
+            int n = array.Length;
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (array[j] > array[j + 1])
+                    {
+                        // İki öğenin yerlerini değiştir
+                        int temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
+                }
+            }
+        }
+        public static void QuickSort(int[] array) //quick sort algortiması (advance)
+        {
+            void Sort(int low, int high)
+            {
+                if (low < high)
+                {
+                    int pivot = Partition(low, high);
+                    Sort(low, pivot - 1);
+                    Sort(pivot + 1, high);
+                }
+            }
+            int Partition(int low, int high)
+            {
+                int pivot = array[high];
+                int i = low - 1;
+
+                for (int j = low; j < high; j++)
+                {
+                    if (array[j] <= pivot)
+                    {
+                        Swap(++i, j);
+                    }
+                }
+                Swap(i + 1, high);
+                return i + 1;
+            }
+
+            void Swap(int a, int b)
+            {
+                (array[a], array[b]) = (array[b], array[a]);
+            }
+
+            Sort(0, array.Length - 1);
+        }
         public static (BinaryTree<EgeDeniziB> tree, Hashtable hash, MaxHeap<EgeDeniziB> heap) DosyaOku()
         { //dosya okundu ve tree oluşturuldu
             string projeYolu = Directory.GetCurrentDirectory();
@@ -146,6 +198,27 @@ namespace Proje3Afragul
 
             }
             Console.ReadKey();
+            //100 elemanlı dizi
+            int[] dizi={184, 26, 874, 369, 299, 838, 500, 244, 388, 451, 209, 118, 222, 92, 885, 787, 87, 139, 539, 263, 625, 507, 875, 545, 39, 18, 516, 633, 382, 868, 415, 610, 818, 39, 701, 455, 149, 323, 140, 59, 487, 573, 936, 142, 360, 473, 293, 689, 540, 248, 327, 408, 54, 710, 16, 776, 173, 843, 629, 806, 958, 688, 51, 811, 754, 236, 964, 878, 981, 35, 848, 422, 175, 396, 354, 647, 602, 153, 458, 53, 103, 887, 636, 909, 927, 123, 402, 152, 211, 498, 278, 245, 523, 395, 474, 660, 796, 417, 32, 848};
+            
+            Stopwatch stopwatch = new Stopwatch(); //hassas zaman hesaplamak icin
+            Stopwatch stopwatch2 = new Stopwatch();
+            stopwatch.Start();
+            for (int i = 0; i < 10000000 ; i++)
+            {
+                BubbleSort(dizi);
+            }
+            stopwatch.Stop();
+            Console.WriteLine($"Bubble sort algoritması için geçen süre : { stopwatch.Elapsed.TotalMilliseconds} ms ");
+
+            stopwatch2.Start();
+            for (int i = 0; i < 10000000 ; i++)
+            {
+                QuickSort(dizi);
+            }
+            stopwatch2.Stop();
+            Console.WriteLine($"Quick sort algoritması için geçen süre : { stopwatch2.Elapsed.TotalMilliseconds} ms ");
+
         }
     }
 }
