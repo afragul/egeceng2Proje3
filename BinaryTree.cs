@@ -84,7 +84,8 @@ namespace Proje3Afragul
             var (leftDepth, leftCount) = CalculateDepthRecursively(node.sol);
             var (rightDepth, rightCount) = CalculateDepthRecursively(node.sag);
 
-            int currentDepth = Math.Max(leftDepth, rightDepth);
+            
+            int currentDepth = 1 + Math.Max(leftDepth, rightDepth);
             int currentNodeCount = 1 + leftCount + rightCount;
 
 
@@ -93,15 +94,15 @@ namespace Proje3Afragul
 
         public void IkiHarf(char baslangic, char son)
         {
-            IkiHarfInOrder(Root, baslangic, son);
+            IkiHarfRecursively(Root, baslangic, son);
         }
 
-        private void IkiHarfInOrder(TreeNode<T> node, char baslangic, char son)
+        private void IkiHarfRecursively(TreeNode<T> node, char baslangic, char son)
         {
             if (node == null) return;
 
             // Sol alt ağacı dolaş
-            IkiHarfInOrder(node.sol, baslangic, son);
+            IkiHarfRecursively(node.sol, baslangic, son);
 
             // Eğer node.Value EgeDeniziB nesnesiyse, onu doğru tipe dönüştür
             if (node.Value is EgeDeniziB balik)  // node.Value'yi EgeDeniziB türüne dönüştür
@@ -120,7 +121,7 @@ namespace Proje3Afragul
                 }
             }
             // Sağ alt ağacı dolaş
-            IkiHarfInOrder(node.sag, baslangic, son);
+            IkiHarfRecursively(node.sag, baslangic, son);
         }
 
         public List<T> InOrderDizi()
