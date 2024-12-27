@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +19,7 @@ namespace Proje3Afragul
         public int derinlik;
         private static int toplamDerinlik = 0;
         private int dugum;
-        private int dengeliDerinlik;
+        public int dengeliDerinlik;
 
         public EgeDeniziB(string isim, string info)
         {
@@ -31,11 +31,12 @@ namespace Proje3Afragul
             {
                 kelimeler.Insert(item.ToLower());
             }
-            derinlik = kelimeler.CalculateDepth().depht;
+            derinlik = kelimeler.CalculateDepth().depht -1 ;
             toplamDerinlik += derinlik;
             dugum = kelimeler.CalculateDepth().count;
             dengeliDerinlik = (int)Math.Floor(Math.Log(dugum + 1, 2));
         }
+        
         public int CompareTo(EgeDeniziB other)
         {
             if (other == null) return 1;
@@ -48,6 +49,7 @@ namespace Proje3Afragul
         public static int GetOrtalamaDerinlik()
         {
             return toplamDerinlik / 38;
+            
         }
     }
 
@@ -120,6 +122,7 @@ namespace Proje3Afragul
                     EgeDeniziB balik = new EgeDeniziB(info[0], info[1]);
                     balıklar.Insert(balik); //baliklar tree ye eklendi
                     baliklarHashTable.Add(balik.isim, balik.kelimeler); //hash table a eklendi
+
                     balikHeap.Insert(balik); //heape eklendi.
                 }
             }
@@ -134,9 +137,13 @@ namespace Proje3Afragul
             BinaryTree<EgeDeniziB> baliklarTree = DosyaOku().tree; //tree
 
             Console.WriteLine(baliklarTree.InOrderTraversal());
+            Console.WriteLine($"Ortalama Derinlik: {EgeDeniziB.GetOrtalamaDerinlik()}");
+            foreach (var balik in baliklarTree.InOrderDizi())
+            {
+                Console.WriteLine($"{balik.isim} - Dengeli Derinlik: {balik.dengeliDerinlik}");
+            }
 
             Console.WriteLine("Lütfen iki harf giriniz.");
-
             string baslangic, son; //2 harf alindi
             baslangic = Console.ReadLine().ToUpper();
             son = Console.ReadLine().ToUpper();
@@ -176,21 +183,21 @@ namespace Proje3Afragul
             }
             baliklarHashTable[balikAdi] = yenikelimeler;  //girilen bilgi güncellendi
 
-            //BinaryTree<string> kelimeAgaci = (BinaryTree<string>)baliklarHashTable[balikAdi];  //Güncel kelime ağacını yazdır
-            //Console.WriteLine($"{balikAdi} -{kelimeAgaci.InOrderTraversal()}");
-            //Console.ReadKey();
+            BinaryTree<string> kelimeAgaci = (BinaryTree<string>)baliklarHashTable[balikAdi];  //Güncel kelime ağacını yazdır
+            Console.WriteLine($"{balikAdi} -{kelimeAgaci.InOrderTraversal()}");
+            Console.ReadKey();
 
             MaxHeap<EgeDeniziB> baliklarMaxHeap = DosyaOku().heap; //heap
-            //Console.WriteLine("Max heap elemanları");
-            //foreach (var item in baliklarMaxHeap.GetHeapList())
-            //{
+            Console.WriteLine("Max heap elemanları");
+            foreach (var item in baliklarMaxHeap.GetHeapList())
+            {
 
-            //    Console.WriteLine(item.isim);                   // heap listesi yazdırıldı
-            //}
-            //Console.ReadKey();
+                Console.WriteLine(item.isim);                   // heap listesi yazdırıldı
+            }
+            Console.ReadKey();
 
             var sayac = 0;
-            foreach(var item in baliklarMaxHeap.GetHeapList())
+            foreach (var item in baliklarMaxHeap.GetHeapList())
             {
                 Console.WriteLine(item.ToString());
                 sayac++;
@@ -199,25 +206,25 @@ namespace Proje3Afragul
             }
             Console.ReadKey();
             //100 elemanlı dizi
-            int[] dizi={184, 26, 874, 369, 299, 838, 500, 244, 388, 451, 209, 118, 222, 92, 885, 787, 87, 139, 539, 263, 625, 507, 875, 545, 39, 18, 516, 633, 382, 868, 415, 610, 818, 39, 701, 455, 149, 323, 140, 59, 487, 573, 936, 142, 360, 473, 293, 689, 540, 248, 327, 408, 54, 710, 16, 776, 173, 843, 629, 806, 958, 688, 51, 811, 754, 236, 964, 878, 981, 35, 848, 422, 175, 396, 354, 647, 602, 153, 458, 53, 103, 887, 636, 909, 927, 123, 402, 152, 211, 498, 278, 245, 523, 395, 474, 660, 796, 417, 32, 848};
-            
+            int[] dizi = { 184, 26, 874, 369, 299, 838, 500, 244, 388, 451, 209, 118, 222, 92, 885, 787, 87, 139, 539, 263, 625, 507, 875, 545, 39, 18, 516, 633, 382, 868, 415, 610, 818, 39, 701, 455, 149, 323, 140, 59, 487, 573, 936, 142, 360, 473, 293, 689, 540, 248, 327, 408, 54, 710, 16, 776, 173, 843, 629, 806, 958, 688, 51, 811, 754, 236, 964, 878, 981, 35, 848, 422, 175, 396, 354, 647, 602, 153, 458, 53, 103, 887, 636, 909, 927, 123, 402, 152, 211, 498, 278, 245, 523, 395, 474, 660, 796, 417, 32, 848 };
+
             Stopwatch stopwatch = new Stopwatch(); //hassas zaman hesaplamak icin
             Stopwatch stopwatch2 = new Stopwatch();
             stopwatch.Start();
-            for (int i = 0; i < 10000000 ; i++)
+            for (int i = 0; i < 10000000; i++)
             {
                 BubbleSort(dizi);
             }
             stopwatch.Stop();
-            Console.WriteLine($"Bubble sort algoritması için geçen süre : { stopwatch.Elapsed.TotalMilliseconds} ms ");
+            Console.WriteLine($"Bubble sort algoritması için geçen süre : {stopwatch.Elapsed.TotalMilliseconds} ms ");
 
             stopwatch2.Start();
-            for (int i = 0; i < 10000000 ; i++)
+            for (int i = 0; i < 10000000; i++)
             {
                 QuickSort(dizi);
             }
             stopwatch2.Stop();
-            Console.WriteLine($"Quick sort algoritması için geçen süre : { stopwatch2.Elapsed.TotalMilliseconds} ms ");
+            Console.WriteLine($"Quick sort algoritması için geçen süre : {stopwatch2.Elapsed.TotalMilliseconds} ms ");
 
         }
     }
